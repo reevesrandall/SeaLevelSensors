@@ -109,6 +109,8 @@ public class PlaneRenderer {
 
   public PlaneRenderer() {}
 
+  public static float planeHeight = 0.5f;
+
   /**
    * Allocates and initializes OpenGL resources needed by the plane renderer. Must be called on the
    * OpenGL thread, typically in {@link GLSurfaceView.Renderer#onSurfaceCreated(GL10, EGLConfig)}.
@@ -358,7 +360,11 @@ public class PlaneRenderer {
     for (SortablePlane sortedPlane : sortedPlanes) {
       Plane plane = sortedPlane.plane;
       float[] planeMatrix = new float[16];
-      plane.getCenterPose().toMatrix(planeMatrix, 0);
+      float[] yOffset = plane.getCenterPose().getYAxis();
+      for (int i = 0; i < yOffset.length; i++) {
+        yOffset[i] *= planeHeight;
+      }
+      plane.getCenterPose().compose(Pose.makeTranslation(yOffset)).toMatrix(planeMatrix, 0);
 
       float[] normal = new float[3];
       // Get transformed Y axis of plane's coordinate system.
