@@ -15,5 +15,32 @@
    limitations under the License.
 -->
 <resources>
-    <string name="app_name">HelloSceneform</string>
+    <string name="app_name">floodAR</string>
+    <string name="nav_item_1">Sample Text</string>
+
+    <string name="cat_bottomsheet_title">Bottom Sheet</string>
+    <string name="cat_bottomsheet_description">
+    Displays a demo of the Bottom Sheet component.
+  </string>
+    <string name="cat_bottomsheet_switch_text">
+    fullscreen mode
+  </string>
+    <string name="cat_bottomsheet_button_text">
+    Show Modal BottomSheetDialog
+  </string>
+    <string name="cat_bottomsheet_state_collapsed" translatable="false">
+    STATE_COLLAPSED
+  </string>
+    <string name="cat_bottomsheet_state_dragging" translatable="false">
+    STATE_DRAGGING
+  </string>
+    <string name="cat_bottomsheet_state_expanded" translatable="false">
+    STATE_EXPANDED
+  </string>
+    <string name="cat_bottomsheet_persistent">
+    Persistent Bottomsheet
+  </string>
+    <string name="slide_transition_name">slide_transition</string>
+    <string name="DOWN">DOWN</string>
+    <string name="UP">UP</string>
 </resources>

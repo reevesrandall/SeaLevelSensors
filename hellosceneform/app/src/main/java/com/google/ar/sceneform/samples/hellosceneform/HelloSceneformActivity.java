@@ -18,13 +18,19 @@ package com.google.ar.sceneform.samples.hellosceneform;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.GestureDetectorCompat;
+import androidx.viewpager.widget.PagerAdapter;
+
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +48,7 @@ import java.util.Map;
 /**
  * This is an example activity that uses the Sceneform UX package to make common AR tasks easier.
  */
-public class HelloSceneformActivity extends AppCompatActivity {
+public class HelloSceneformActivity extends AppCompatActivity implements Swipeable {
     private static final String TAG = HelloSceneformActivity.class.getSimpleName();
     private static final double MIN_OPENGL_VERSION = 3.0;
 
@@ -54,6 +60,11 @@ public class HelloSceneformActivity extends AppCompatActivity {
     private float planeHeight = 1.0f;
 
     private static final float METER_LIMIT = 3.0f;
+
+    private GestureViewPager pager;
+    private PagerAdapter pagerAdapter;
+    private PagerContainer pagerContainer;
+    private GestureDetectorCompat gestureDetector;
 
     @Override
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
@@ -67,9 +78,74 @@ public class HelloSceneformActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_ux);
+
+        // set up gesture detection and the pages for horizontal storm scrolling
+        GestureListener gestureListener = new GestureListener();
+        gestureListener.setActivity(this);
+        gestureDetector = new GestureDetectorCompat(this, gestureListener);
+
+        pagerContainer = findViewById(R.id.pager_container);
+        pager = pagerContainer.getViewPager();
+        pager.setGestureDetector(gestureDetector);
+        pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        // configure the page settings
+        pager.setOffscreenPageLimit(pagerAdapter.getCount());
+        pager.setPageMargin(20);
+        pager.setClipChildren(false);
+        pager.setAdapter(pagerAdapter);
+    }
+
+    /**
+     * Provides an implementation for receiving a fling gesture
+     * @param direction the direction for the fling gesture
+     */
+    public void slideTransition(String direction) {
+        if (direction.equals(getResources().getString(R.string.UP))) {
+            Intent intent = new Intent(this, StormActivity.class);
+            intent.putExtra("CURRENT_ITEM", pager.getCurrentItem());
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
+                    findViewById(R.id.bottom_storm_name), getResources().getString(R.string.slide_transition_name));
+            startActivity(intent, options.toBundle());
+        }
+    }
+
+    /**
+     * Returns false and displays an error message if Sceneform can not run, true if Sceneform can run
+     * on this device.
+     *
+     * <p>Sceneform requires Android N on the device as well as OpenGL 3.0 capabilities.
+     *
+     * <p>Finishes the activity if Sceneform can not run
+     */
+    public static boolean checkIsSupportedDeviceOrFinish(final Activity activity) {
+        if (Build.VERSION.SDK_INT < VERSION_CODES.N) {
+            Log.e(TAG, "Sceneform requires Android N or later");
+            Toast.makeText(activity, "Sceneform requires Android N or later", Toast.LENGTH_LONG).show();
+            activity.finish();
+            return false;
+        }
+        String openGlVersionString =
+                ((ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE))
+                        .getDeviceConfigurationInfo()
+                        .getGlEsVersion();
+        if (Double.parseDouble(openGlVersionString) < MIN_OPENGL_VERSION) {
+            Log.e(TAG, "Sceneform requires OpenGL ES 3.0 later");
+            Toast.makeText(activity, "Sceneform requires OpenGL ES 3.0 or later", Toast.LENGTH_LONG)
+                    .show();
+            activity.finish();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Allows for the seek bar to be initialized from the page fragments since it only appears on one
+     * @param view the seek bar that we initialize. Retrieved from the fragment class
+     */
+    public void initSeekBar(SeekBar view) {
         arFragment = (WaterLevelARFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
 
-        heightPicker = findViewById(R.id.heightPicker);
+        heightPicker = view;
         heightPicker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
@@ -119,37 +195,6 @@ public class HelloSceneformActivity extends AppCompatActivity {
                     andy.setRenderable(andyRenderable);
                     andy.select();
                 });
-
-
-    }
-
-    /**
-     * Returns false and displays an error message if Sceneform can not run, true if Sceneform can run
-     * on this device.
-     *
-     * <p>Sceneform requires Android N on the device as well as OpenGL 3.0 capabilities.
-     *
-     * <p>Finishes the activity if Sceneform can not run
-     */
-    public static boolean checkIsSupportedDeviceOrFinish(final Activity activity) {
-        if (Build.VERSION.SDK_INT < VERSION_CODES.N) {
-            Log.e(TAG, "Sceneform requires Android N or later");
-            Toast.makeText(activity, "Sceneform requires Android N or later", Toast.LENGTH_LONG).show();
-            activity.finish();
-            return false;
-        }
-        String openGlVersionString =
-                ((ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE))
-                        .getDeviceConfigurationInfo()
-                        .getGlEsVersion();
-        if (Double.parseDouble(openGlVersionString) < MIN_OPENGL_VERSION) {
-            Log.e(TAG, "Sceneform requires OpenGL ES 3.0 later");
-            Toast.makeText(activity, "Sceneform requires OpenGL ES 3.0 or later", Toast.LENGTH_LONG)
-                    .show();
-            activity.finish();
-            return false;
-        }
-        return true;
     }
 
     private void updateHeightLabel() {
