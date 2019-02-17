@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.ar.sceneform.samples.hellosceneform;
+package com.cs3312.team8327.floodar;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -30,26 +30,23 @@ import androidx.viewpager.widget.PagerAdapter;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.cs3312.team8327.R;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.rendering.ModelRenderable;
-import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * This is an example activity that uses the Sceneform UX package to make common AR tasks easier.
  */
-public class HelloSceneformActivity extends AppCompatActivity implements Swipeable {
-    private static final String TAG = HelloSceneformActivity.class.getSimpleName();
+public class ArActivity extends AppCompatActivity implements Swipeable {
+    private static final String TAG = ArActivity.class.getSimpleName();
     private static final double MIN_OPENGL_VERSION = 3.0;
 
     private WaterLevelARFragment arFragment;
@@ -78,6 +75,7 @@ public class HelloSceneformActivity extends AppCompatActivity implements Swipeab
         }
 
         setContentView(R.layout.activity_ux);
+        arFragment = (WaterLevelARFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
 
         // set up gesture detection and the pages for horizontal storm scrolling
         GestureListener gestureListener = new GestureListener();
@@ -139,12 +137,21 @@ public class HelloSceneformActivity extends AppCompatActivity implements Swipeab
     }
 
     /**
+     * Allows the water level for the AR planes to be changed based on the current storm being viewed
+     * in the bottom cards
+     * @param waterLevel the height to set the AR water level to
+     */
+    public void changeWaterLevel(float waterLevel) {
+        Log.d("AR ACTIVITY", "changing storm level");
+        planeHeight = waterLevel;
+        arFragment.setWaterHeight(planeHeight);
+    }
+
+    /**
      * Allows for the seek bar to be initialized from the page fragments since it only appears on one
      * @param view the seek bar that we initialize. Retrieved from the fragment class
      */
     public void initSeekBar(SeekBar view) {
-        arFragment = (WaterLevelARFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
-
         heightPicker = view;
         heightPicker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

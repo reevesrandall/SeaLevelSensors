@@ -1,9 +1,8 @@
-package com.google.ar.sceneform.samples.hellosceneform;
+package com.cs3312.team8327.floodar;
 
 import android.content.Context;
 import android.graphics.Point;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -49,7 +48,7 @@ public class PagerContainer extends FrameLayout implements ViewPager.OnPageChang
         super.onFinishInflate();
         try {
             mPager = (GestureViewPager) getChildAt(0);
-            mPager.setOnPageChangeListener(this);
+            mPager.addOnPageChangeListener(this);
         } catch (Exception e) {
             throw new IllegalStateException("The root child of PagerContainer must be a ViewPager");
         }
@@ -74,15 +73,19 @@ public class PagerContainer extends FrameLayout implements ViewPager.OnPageChang
         // to implement scrolling from a touch outside the pager bounds.
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                Log.d("PAGER CONTAINER", "TOUCH DOWN EVENT");
                 mInitialTouch.x = (int)ev.getX();
                 mInitialTouch.y = (int)ev.getY();
             default:
                 ev.offsetLocation(mCenter.x - mInitialTouch.x, mCenter.y - mInitialTouch.y);
                 break;
         }
-        Log.d("PAGER CONTAINER", "WERE HERE");
+//        this.performClick();
         return mPager.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean performClick() {
+        return super.performClick();
     }
 
     @Override

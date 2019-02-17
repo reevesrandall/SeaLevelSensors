@@ -1,7 +1,4 @@
-package com.google.ar.sceneform.samples.hellosceneform;
-
-import android.os.Bundle;
-import android.util.Log;
+package com.cs3312.team8327.floodar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

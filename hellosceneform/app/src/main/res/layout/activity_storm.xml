@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StormActivity">
+    tools:context=".floodar.StormActivity">
 
     <LinearLayout
         android:id="@+id/bottom_drawer"
@@ -39,9 +39,37 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/cat_bottomsheet_state_collapsed"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:transitionName="@string/slide_transition_name"
                 android:layout_marginStart="16dp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/storm_name"
+                android:id="@+id/storm_description_header"
+                android:textSize="18sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/black"
+                android:text="@string/storm_description_header"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/storm_description_header"
+                android:id="@+id/storm_description"
+                android:textSize="18sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="6dp"
+                android:textColor="@color/black"
+                android:text="@string/storm_description_header"
+                android:scrollbars="vertical"
                 />
 
         </RelativeLayout>

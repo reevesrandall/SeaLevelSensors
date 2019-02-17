@@ -1,11 +1,13 @@
-package com.google.ar.sceneform.samples.hellosceneform;
+package com.cs3312.team8327.floodar;
 
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.ar.sceneform.samples.hellosceneform.Model.StormList;
+import com.cs3312.team8327.R;
+import com.cs3312.team8327.floodar.Model.StormList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GestureDetectorCompat;
@@ -56,6 +58,9 @@ public class StormActivity extends AppCompatActivity implements Swipeable {
 
     private void populateStorm(int stormIndex) {
         TextView stormName = findViewById(R.id.storm_name);
+        TextView stormDescription = findViewById(R.id.storm_description);
         stormName.setText(StormList.getStorm(stormIndex).getName());
+        stormDescription.setText(StormList.getStorm(stormIndex).getDescription());
+        stormDescription.setMovementMethod(new ScrollingMovementMethod());
     }
 }

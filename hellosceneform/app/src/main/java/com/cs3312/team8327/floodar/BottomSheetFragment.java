@@ -15,32 +15,26 @@
  * limitations under the License.
  */
 
-package com.google.ar.sceneform.samples.hellosceneform;
+package com.cs3312.team8327.floodar;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.ar.sceneform.samples.hellosceneform.Model.StormList;
+import com.cs3312.team8327.R;
+import com.cs3312.team8327.floodar.Model.StormList;
 
 import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 
 /** A fragment that displays the main BottomSheet demo for the Catalog app. */
 public class BottomSheetFragment extends Fragment {
     private int stormIndex;
+    private float stormLevel;
 
     @Override
     public View onCreateView(
@@ -50,9 +44,17 @@ public class BottomSheetFragment extends Fragment {
         TextView stormName = view.findViewById(R.id.bottom_storm_name);
         stormName.setText(StormList.getStorm(stormIndex).getName());
 
+        stormLevel = StormList.getStorm(stormIndex).getLevel();
+
         if (stormIndex == 0) {
             // set up the slider
-            ((HelloSceneformActivity) getActivity()).initSeekBar(view.findViewById(R.id.heightPicker));
+            ((ArActivity) getActivity()).initSeekBar(view.findViewById(R.id.heightPicker));
+        }
+
+        if (stormLevel > 0) {
+            // set the storm level to be that of the storm we are viewing
+            Log.d("BOTTOM SHEET", "changing storm level");
+            ((ArActivity) getActivity()).changeWaterLevel(stormLevel);
         }
 
         return view;

@@ -20,11 +20,11 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HelloSceneformActivity">
+    tools:context=".floodar.ArActivity">
 
   <fragment
       android:id="@+id/ux_fragment"
-      android:name="com.google.ar.sceneform.samples.hellosceneform.WaterLevelARFragment"
+      android:name="com.cs3312.team8327.floodar.WaterLevelARFragment"
       android:layout_width="0dp"
       android:layout_height="0dp"
       app:layout_constraintBottom_toBottomOf="parent"
@@ -56,7 +56,7 @@
 
   </LinearLayout>
 
-  <com.google.ar.sceneform.samples.hellosceneform.PagerContainer
+  <com.cs3312.team8327.floodar.PagerContainer
       android:id="@+id/pager_container"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
@@ -65,7 +65,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.ar.sceneform.samples.hellosceneform.GestureViewPager
+    <com.cs3312.team8327.floodar.GestureViewPager
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/pager"
         android:layout_width="300dp"
@@ -76,6 +76,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
-  </com.google.ar.sceneform.samples.hellosceneform.PagerContainer>
+  </com.cs3312.team8327.floodar.PagerContainer>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

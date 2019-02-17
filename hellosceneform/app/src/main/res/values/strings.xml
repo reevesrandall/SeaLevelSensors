@@ -40,7 +40,8 @@
     <string name="cat_bottomsheet_persistent">
     Persistent Bottomsheet
   </string>
-    <string name="slide_transition_name">slide_transition</string>
-    <string name="DOWN">DOWN</string>
-    <string name="UP">UP</string>
+  <string name="slide_transition_name">slide_transition</string>
+  <string name="DOWN">DOWN</string>
+  <string name="UP">UP</string>
+  <string name="storm_description_header">DESCRIPTION</string>
 </resources>
