@@ -166,9 +166,9 @@ public class ArActivity extends AppCompatActivity implements Swipeable {
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
-        heightLabel = findViewById(R.id.heightLabel);
+        heightLabel = new TextView(this);
         updateHeightLabel();
-        arFragment.setWaterLabel(heightLabel);
+        // arFragment.setWaterLabel(heightLabel);
 
         // When you build a Renderable, Sceneform loads its resources in the background while returning
         // a CompletableFuture. Call thenAccept(), handle(), or check isDone() before calling get().

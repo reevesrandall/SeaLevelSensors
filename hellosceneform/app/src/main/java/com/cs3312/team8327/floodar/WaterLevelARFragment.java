@@ -2,6 +2,9 @@ package com.cs3312.team8327.floodar;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
+import android.support.annotation.ColorInt;
+import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.ar.core.Plane;
@@ -10,19 +13,23 @@ import com.google.ar.core.Session;
 import com.google.ar.sceneform.FrameTime;
 import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.Scene;
+import com.google.ar.sceneform.math.Quaternion;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.Color;
 import com.google.ar.sceneform.rendering.Material;
 import com.google.ar.sceneform.rendering.MaterialFactory;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.ShapeFactory;
+import com.google.ar.sceneform.rendering.ViewRenderable;
+import com.google.ar.sceneform.rendering.ViewSizer;
 import com.google.ar.sceneform.ux.ArFragment;
+import com.google.ar.sceneform.ux.TransformableNode;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class WaterLevelARFragment extends ArFragment {
+public class WaterLevelARFragment extends ArFragment implements ViewSizer {
 
     // private Map<Plane, Node> waterNodes = new HashMap<>();
     private List<Node> waterNodes = new ArrayList<>();
@@ -42,8 +49,24 @@ public class WaterLevelARFragment extends ArFragment {
     private Node labelNode;
 
     public void setWaterLabel(TextView waterLabel) {
-        this.waterLabel = waterLabel;
+        // this.waterLabel =waterLabel;
+
+        if (waterLabel != null) {
+            /* waterLabel.setText("Oh hey");
+
+            waterLabel.setBackgroundColor(0xFFF);
+            waterLabel.setTextColor(0x0);
+            waterLabel.setPadding(10, 10, 10, 10);
+            waterLabel.setTextSize(30); */
+
+            // waterLabel.setText(HeightFormatter.stringForHeight(waterHeight));
+
+
+        }
+
     }
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,7 +76,12 @@ public class WaterLevelARFragment extends ArFragment {
         MaterialFactory.makeTransparentWithColor(getContext(), waterColor)
                 .thenAccept(material -> { this.waterMaterial = material; });
 
-        waterLabel = new TextView(getContext());
+        ModelRenderable.builder()
+                .setSource(getContext(), R.raw.andy)
+                .build()
+                .thenAccept(renderable -> this.waterMaterial = renderable.getMaterial());
+
+
     }
 
     @Override
@@ -88,26 +116,44 @@ public class WaterLevelARFragment extends ArFragment {
             node.setRenderable(water);
         }
 
-        /* if (waterLabel != null && planes.size() > 0) {
+        if (planes.size() == 0) { return; }
+
+        if (waterLabel == null && getArSceneView() != null) {
+            ViewRenderable.builder()
+                    .setView(getContext(), R.layout.water_height_label)
+                    .setVerticalAlignment(ViewRenderable.VerticalAlignment.CENTER)
+                    .setHorizontalAlignment(ViewRenderable.HorizontalAlignment.CENTER)
+                    // .setSizer(this)
+                    .build()
+                    .thenAccept(labelRenderable -> {
+                        labelNode = new Node();
+                        labelNode.setRenderable(labelRenderable);
+//                        scene.addChild(labelNode);
+                        labelNode.setParent(scene);
+
+                        waterLabel = (TextView)labelRenderable.getView();
+                    });
+        }
+
+        if (labelNode != null && planes.size() > 0) {
             waterLabel.setText(HeightFormatter.stringForHeight(waterHeight));
 
             Plane plane = planes.get(0);
             float[] translation = plane.getCenterPose().getTranslation();
-            Vector3 position = new Vector3(translation[0], translation[1] + waterHeight, translation[2]);
-            ViewRenderable.builder()
-                    .setView(getContext(), waterLabel)
-                    .build()
-                    .thenAccept(labelRenderable -> {
-                        if (labelNode != null) {
-                            scene.removeChild(labelNode);
-                        }
+            Vector3 position = new Vector3(translation[0], translation[1] + waterHeight + 0.2f, translation[2]);
+            labelNode.setWorldPosition(position);
 
-                        labelNode = new AnchorNode();
-                        labelNode.setWorldPosition(position);
-                        labelNode.setRenderable(labelRenderable);
-                        scene.addChild(labelNode);
-                    });
-        } */
+            // Point at camera:
+            /* Vector3 cameraPosition = scene.getCamera().getWorldPosition();
+            Vector3 direction = Vector3.subtract(cameraPosition, position);
+            Quaternion lookRotation = Quaternion.lookRotation(direction, Vector3.up());
+            labelNode.setWorldRotation(lookRotation); */
+        }
 
+    }
+
+    @Override
+    public Vector3 getSize(View view) {
+        return new Vector3(30, 15, 0);
     }
 }
