@@ -1,6 +1,6 @@
 {
    materials: [
-      {
+      /* {
          name: "unlit_material",
          parameters: [
             {
@@ -25,7 +25,15 @@
             },
          ],
          source: "build/sceneform_sdk/default_materials/obj_material.sfm",
-      },
+      }, */
+      {
+        parameters: [
+          {
+            normalMap: "water_sampler"
+          },
+        ],
+        source: "src/main/res/raw/water.mat",
+      }
    ],
    model: {
       attributes: [
@@ -56,6 +64,15 @@
          name: "andy",
          pipeline_name: "andy.png",
       },
+      {
+        file: "src/main/res/raw/water_normal.jpg",
+        name: "water_sampler",
+        params: {
+            usage_type: "Normal",
+            wrap_s: "Repeat",
+            wrap_t: "Repeat",
+        }
+      }
    ],
    version: "0.51:1",
 }
