@@ -30,6 +30,8 @@ import androidx.viewpager.widget.PagerAdapter;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,6 +65,8 @@ public class ArActivity extends AppCompatActivity implements Swipeable {
     private PagerContainer pagerContainer;
     private GestureDetectorCompat gestureDetector;
 
+    private Button mapButton;
+
     @Override
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
     // CompletableFuture requires api level 24
@@ -74,7 +78,7 @@ public class ArActivity extends AppCompatActivity implements Swipeable {
             return;
         }
 
-        setContentView(R.layout.activity_ux);
+        setContentView(R.layout.activity_ar);
         arFragment = (WaterLevelARFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
 
         // set up gesture detection and the pages for horizontal storm scrolling
@@ -91,6 +95,15 @@ public class ArActivity extends AppCompatActivity implements Swipeable {
         pager.setPageMargin(20);
         pager.setClipChildren(false);
         pager.setAdapter(pagerAdapter);
+
+        mapButton = findViewById(R.id.map_button);
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), MapActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     /**
