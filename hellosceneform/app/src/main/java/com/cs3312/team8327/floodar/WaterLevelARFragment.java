@@ -2,11 +2,11 @@ package com.cs3312.team8327.floodar;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.Nullable;
+import androidx.annotation.ColorInt;
 import android.view.View;
 import android.widget.TextView;
 
+import com.cs3312.team8327.R;
 import com.google.ar.core.Plane;
 import com.google.ar.core.Pose;
 import com.google.ar.core.Session;
