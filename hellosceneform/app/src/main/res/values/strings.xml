@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
    Copyright 2018 Google LLC.
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,8 +39,12 @@
     <string name="cat_bottomsheet_persistent">
     Persistent Bottomsheet
   </string>
-  <string name="slide_transition_name">slide_transition</string>
-  <string name="DOWN">DOWN</string>
-  <string name="UP">UP</string>
-  <string name="storm_description_header">DESCRIPTION</string>
+    <string name="slide_transition_name">slide_transition</string>
+    <string name="DOWN">DOWN</string>
+    <string name="UP">UP</string>
+    <string name="storm_description_header">DESCRIPTION</string>
+  <string name="mapbox_access_token"></string>
+    <string name="user_location_permission_explanation">floodAR needs your location in order to show you accurate flood water levels for your elevation.</string>
+    <string name="user_location_permission_not_granted">You\'ve decided not to let floodAR view your location. You can change this decision in your settings app.</string>
+    <string name="storm_location_updated">Your storm location has been updated.</string>
 </resources>
