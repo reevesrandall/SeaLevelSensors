@@ -2,8 +2,8 @@ package com.cs3312.team8327.floodar;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.Nullable;
+//import android.support.annotation.ColorInt;
+//import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,6 +19,7 @@ import com.google.ar.sceneform.rendering.Color;
 import com.google.ar.sceneform.rendering.Material;
 import com.google.ar.sceneform.rendering.MaterialFactory;
 import com.google.ar.sceneform.rendering.ModelRenderable;
+import com.google.ar.sceneform.rendering.PlaneRenderer;
 import com.google.ar.sceneform.rendering.ShapeFactory;
 import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.rendering.ViewSizer;
@@ -28,6 +29,9 @@ import com.google.ar.sceneform.ux.TransformableNode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.cs3312.team8327.R;
+
 
 public class WaterLevelARFragment extends ArFragment implements ViewSizer {
 
@@ -107,11 +111,10 @@ public class WaterLevelARFragment extends ArFragment implements ViewSizer {
             waterNodes.add(node);
 
             Pose pose = plane.getCenterPose();
-            float width = 0.8f; // meters
-            Vector3 size = new Vector3(width, waterHeight, width);
+            Vector3 size = new Vector3(plane.getExtentX(), 0, plane.getExtentZ());
             float[] translation = pose.getTranslation();
             Vector3 center = new Vector3(translation[0], translation[1], translation[2]);
-            center.y += waterHeight / 2.0f;
+            center.y += waterHeight;
             ModelRenderable water = ShapeFactory.makeCube(size, center, waterMaterial);
             node.setRenderable(water);
         }
