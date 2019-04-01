@@ -1,0 +1,32 @@
+material {
+  name : "Water",
+  parameters : [
+    {
+      type : sampler2d,
+      name : normalMap,
+    },
+    {
+      type : vec4,
+      name : waterColor,
+    }
+  ],
+  requires : [
+    uv0
+  ],
+  shadingModel : lit,
+  blending : add,
+  doubleSided : true,
+  transparency: twoPassesTwoSides,
+}
+fragment {
+  void material(inout MaterialInputs material) {
+    vec3 normal = texture(materialParams_normalMap, getUV0()).xyz;
+    material.normal = (normal * 2.0 - 1.0) * 3.0;
+    prepareMaterial(material);
+    material.baseColor = vec4(0.035, 0.4, 0.65, 0.8); // vec4(0.0353, 0.6902, 0.9686, 0.8);
+    //material.metallic = 0.5;
+    // material.roughness = 0;
+    material.reflectance = 0.35;
+    // material.anisotopy = 0;
+  }
+}

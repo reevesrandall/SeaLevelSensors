@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.widget.SeekBar;
 import android.widget.Toast;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.ArCoreApk;
@@ -85,6 +86,8 @@ public class HelloArActivity extends AppCompatActivity implements GLSurfaceView.
   private final float[] anchorMatrix = new float[16];
   private static final float[] DEFAULT_COLOR = new float[] {0f, 0f, 0f, 0f};
 
+  private SeekBar slider;
+
   // Anchors created from taps used for object placing with a given color.
   private static class ColoredAnchor {
     public final Anchor anchor;
@@ -116,6 +119,24 @@ public class HelloArActivity extends AppCompatActivity implements GLSurfaceView.
     surfaceView.setRenderer(this);
     surfaceView.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
     surfaceView.setWillNotDraw(false);
+
+    slider = findViewById(R.id.seekBar);
+    slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+      @Override
+      public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+        PlaneRenderer.planeHeight = progress / 12.0f;
+      }
+
+      @Override
+      public void onStartTrackingTouch(SeekBar seekBar) {
+
+      }
+
+      @Override
+      public void onStopTrackingTouch(SeekBar seekBar) {
+
+      }
+    });
 
     installRequested = false;
   }
@@ -322,7 +343,7 @@ public class HelloArActivity extends AppCompatActivity implements GLSurfaceView.
         zAxis[i] = zAxis[i] * 10;
       }
       planeRenderer.drawPlanes(
-          session.getAllTrackables(Plane.class), camera.getDisplayOrientedPose().compose(Pose.makeTranslation(zAxis)), projmtx);
+          session.getAllTrackables(Plane.class), camera.getDisplayOrientedPose(), projmtx);
 
       // Visualize anchors created by touch.
       float scaleFactor = 1.0f;

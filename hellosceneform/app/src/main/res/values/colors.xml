@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="drawerColor">#FAFFFFFF</color>
+    <color name="greyAccent">#FAb6b6b6</color>
+    <color name="black">#000</color>
+    <color name="white">#FFF</color>
+</resources>

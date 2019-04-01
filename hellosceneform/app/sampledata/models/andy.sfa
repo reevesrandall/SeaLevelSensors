@@ -1,0 +1,78 @@
+{
+   materials: [
+      /* {
+         name: "unlit_material",
+         parameters: [
+            {
+               baseColor: "andy",
+            },
+            {
+               baseColorTint: [
+                  1,
+                  1,
+                  1,
+                  1,
+               ],
+            },
+            {
+               metallic: 1,
+            },
+            {
+               roughness: 1,
+            },
+            {
+               opacity: null,
+            },
+         ],
+         source: "build/sceneform_sdk/default_materials/obj_material.sfm",
+      }, */
+      {
+        parameters: [
+          {
+            normalMap: "water_sampler"
+          },
+        ],
+        source: "src/main/res/raw/water.mat",
+      }
+   ],
+   model: {
+      attributes: [
+         "Position",
+         "TexCoord",
+         "Orientation",
+      ],
+      file: "sampledata/models/andy.obj",
+      name: "andy",
+      recenter: "root",
+      suggested_collision: {
+         center: {
+            x: 0,
+            y: 0,
+            z: 0,
+         },
+         size: {
+            x: 1,
+            y: 1,
+            z: 1,
+         },
+         type: "Box",
+      },
+   },
+   samplers: [
+      {
+         file: "sampledata/models/andy.png",
+         name: "andy",
+         pipeline_name: "andy.png",
+      },
+      {
+        file: "src/main/res/raw/water_normal.jpg",
+        name: "water_sampler",
+        params: {
+            usage_type: "Normal",
+            wrap_s: "Repeat",
+            wrap_t: "Repeat",
+        }
+      }
+   ],
+   version: "0.51:1",
+}
