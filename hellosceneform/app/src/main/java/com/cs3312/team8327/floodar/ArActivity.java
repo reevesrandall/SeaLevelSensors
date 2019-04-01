@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.GestureDetectorCompat;
@@ -31,12 +32,15 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cs3312.team8327.R;
+import com.cs3312.team8327.floodar.Model.StormList;
+import com.cs3312.team8327.floodar.Util.HeightFormatter;
+import com.cs3312.team8327.floodar.Util.HttpRequest;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
@@ -45,9 +49,10 @@ import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.TransformableNode;
 
 /**
- * This is an example activity that uses the Sceneform UX package to make common AR tasks easier.
+ * This is the activity for showing the AR water level fragment on the user's camera
+ * as well as a list of past storms for further viewing
  */
-public class ArActivity extends AppCompatActivity implements Swipeable {
+public class ArActivity extends AppCompatActivity implements Swipeable, AsyncListener {
     private static final String TAG = ArActivity.class.getSimpleName();
     private static final double MIN_OPENGL_VERSION = 3.0;
 
@@ -65,7 +70,8 @@ public class ArActivity extends AppCompatActivity implements Swipeable {
     private PagerContainer pagerContainer;
     private GestureDetectorCompat gestureDetector;
 
-    private Button mapButton;
+    private FloatingActionButton mapButton;
+    private FloatingActionButton helpButton;
 
     @Override
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
@@ -78,16 +84,26 @@ public class ArActivity extends AppCompatActivity implements Swipeable {
             return;
         }
 
-        setContentView(R.layout.activity_ar);
-        arFragment = (WaterLevelARFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
+        // perform http request to get storms
+        HttpRequest.sendRequest(this, getString(R.string.airtable_key), this);
 
-        // set up gesture detection and the pages for horizontal storm scrolling
+        setContentView(R.layout.activity_ar);
+
+        arFragment = (WaterLevelARFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
+    }
+
+    /**
+     * Handles the population of the bottom drawer of cards through the http request
+     * Used as a callback in the add storms method
+     */
+    public void onEventCompleted() {
         GestureListener gestureListener = new GestureListener();
         gestureListener.setActivity(this);
         gestureDetector = new GestureDetectorCompat(this, gestureListener);
 
         pagerContainer = findViewById(R.id.pager_container);
         pager = pagerContainer.getViewPager();
+        pager.setSwipeable(this);
         pager.setGestureDetector(gestureDetector);
         pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         // configure the page settings
@@ -96,11 +112,22 @@ public class ArActivity extends AppCompatActivity implements Swipeable {
         pager.setClipChildren(false);
         pager.setAdapter(pagerAdapter);
 
+        pager.setCurrentItem(StormList.getInstance().getLength() - 1);
+
         mapButton = findViewById(R.id.map_button);
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), MapActivity.class);
+                startActivity(i);
+            }
+        });
+
+        helpButton = findViewById(R.id.help_button);
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), HelpActivity.class);
                 startActivity(i);
             }
         });

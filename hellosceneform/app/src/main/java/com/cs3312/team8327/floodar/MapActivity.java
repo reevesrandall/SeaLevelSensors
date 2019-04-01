@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -24,7 +23,6 @@ import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.location.LocationComponent;
-import com.mapbox.mapboxsdk.location.modes.CameraMode;
 import com.mapbox.mapboxsdk.location.modes.RenderMode;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
@@ -40,6 +38,9 @@ import java.util.List;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconOffset;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage;
 
+/**
+ * Activity for handling the map view in the app to change the user's location
+ */
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener {
 
     private static final int REQUEST_CODE_AUTOCOMPLETE = 1;
@@ -75,7 +76,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                         initSearchFab();
 
-//                        // Add the symbol layer icon to map for future use
+                        // Add the symbol layer icon to map for future use
                         style.addImage(symbolIconId, getDrawable(R.drawable.ic_location_on_black_24dp));
 
                         // Create an empty GeoJSON source using the empty feature collection
@@ -87,6 +88,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 });
     }
 
+    /**
+     * Initialize the floating action button to search for a new location
+     */
     private void initSearchFab() {
         findViewById(R.id.fab_location_search).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,16 +165,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             // Enable to make component visible
             locationComponent.setLocationComponentEnabled(true);
-
-            currentLocation = CarmenFeature.builder().text("Current Location")
-                    .geometry(Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(), locationComponent.getLastKnownLocation().getLatitude()))
-                    .placeName("Current Location")
-                    .id("current-location")
-                    .properties(new JsonObject())
-                    .build();
-
-            // Set the component's camera mode
-//            locationComponent.setCameraMode(CameraMode.TRACKING);
+            if (locationComponent.getLastKnownLocation() != null) {
+                currentLocation = CarmenFeature.builder().text("Current Location")
+                        .geometry(Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(), locationComponent.getLastKnownLocation().getLatitude()))
+                        .placeName("Current Location")
+                        .id("current-location")
+                        .properties(new JsonObject())
+                        .build();
+            }
 
             // Set the component's render mode
             locationComponent.setRenderMode(RenderMode.COMPASS);

@@ -2,37 +2,35 @@ package com.cs3312.team8327.floodar;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
-import androidx.annotation.ColorInt;
 import android.view.View;
 import android.widget.TextView;
 
 import com.cs3312.team8327.R;
+import com.cs3312.team8327.floodar.Util.HeightFormatter;
 import com.google.ar.core.Plane;
 import com.google.ar.core.Pose;
 import com.google.ar.core.Session;
 import com.google.ar.sceneform.FrameTime;
 import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.Scene;
-import com.google.ar.sceneform.math.Quaternion;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.Color;
 import com.google.ar.sceneform.rendering.Material;
 import com.google.ar.sceneform.rendering.MaterialFactory;
 import com.google.ar.sceneform.rendering.ModelRenderable;
-import com.google.ar.sceneform.rendering.PlaneRenderer;
 import com.google.ar.sceneform.rendering.ShapeFactory;
 import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.rendering.ViewSizer;
 import com.google.ar.sceneform.ux.ArFragment;
-import com.google.ar.sceneform.ux.TransformableNode;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.cs3312.team8327.R;
 
-
+/**
+ * Class for handling the AR water level fragment shown in the AR Activity
+ */
 public class WaterLevelARFragment extends ArFragment implements ViewSizer {
 
     // private Map<Plane, Node> waterNodes = new HashMap<>();
