@@ -21,7 +21,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="false"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity android:name=".floodar.HelpActivity"></activity>
         <!--
          This tag indicates that this application requires ARCore. This results in the
             application only being visible in the Google Play Store on devices that support
@@ -48,9 +48,9 @@
             android:name=".floodar.StormActivity"
             android:screenOrientation="portrait"
             android:theme="@style/StormViewTheme" />
-        <activity android:name=".floodar.MapActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".floodar.MapActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

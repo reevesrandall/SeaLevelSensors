@@ -4,6 +4,9 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
+/**
+ * Class to detect and handle gestures throughout the app
+ */
 class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
     // Minimal x and y axis swipe distance.
@@ -18,6 +21,9 @@ class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
     private Swipeable activity;
 
+    private int initialX;
+    private int initialY;
+
     public void setActivity(Swipeable activity) {
         this.activity = activity;
     }
@@ -28,7 +34,9 @@ class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
     @Override
     public boolean onDown(MotionEvent event) {
-        Log.d(DEBUG_TAG,"onDown: " + event.toString());
+        Log.e(DEBUG_TAG,"onDown: " + event.toString());
+        initialX = (int) event.getX();
+        initialY = (int) event.getY();
         return true;
     }
 

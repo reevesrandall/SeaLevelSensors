@@ -3,6 +3,7 @@ package com.cs3312.team8327.floodar;
 import android.content.Context;
 import android.graphics.Point;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -77,9 +78,9 @@ public class PagerContainer extends FrameLayout implements ViewPager.OnPageChang
                 mInitialTouch.y = (int)ev.getY();
             default:
                 ev.offsetLocation(mCenter.x - mInitialTouch.x, mCenter.y - mInitialTouch.y);
+                Log.e("GESTURE", (mCenter.y - mInitialTouch.y) + "");
                 break;
         }
-//        this.performClick();
         return mPager.dispatchTouchEvent(ev);
     }
 

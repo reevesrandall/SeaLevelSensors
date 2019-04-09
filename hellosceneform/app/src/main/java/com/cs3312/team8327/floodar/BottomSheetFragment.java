@@ -1,20 +1,3 @@
-
-/*
- * Copyright 2018 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.cs3312.team8327.floodar;
 
 import android.os.Bundle;
@@ -31,7 +14,9 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-/** A fragment that displays the main BottomSheet demo for the Catalog app. */
+/**
+ * A fragment that displays the main BottomSheet cards for the floodAR app.
+ */
 public class BottomSheetFragment extends Fragment {
     private int stormIndex;
     private float stormLevel;
@@ -42,9 +27,9 @@ public class BottomSheetFragment extends Fragment {
         View view = layoutInflater.inflate(getContent(), viewGroup, false /* attachToRoot */);
 
         TextView stormName = view.findViewById(R.id.bottom_storm_name);
-        stormName.setText(StormList.getStorm(stormIndex).getName());
+        stormName.setText(StormList.getInstance().getStorm(stormIndex).getName());
 
-        stormLevel = StormList.getStorm(stormIndex).getLevel();
+        stormLevel = StormList.getInstance().getStorm(stormIndex).getLevel();
 
         if (stormIndex == 0) {
             // set up the slider

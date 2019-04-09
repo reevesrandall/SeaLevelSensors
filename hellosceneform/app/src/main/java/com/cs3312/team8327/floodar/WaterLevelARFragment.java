@@ -2,9 +2,11 @@ package com.cs3312.team8327.floodar;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
+import android.view.View;
 import android.widget.TextView;
 
 import com.cs3312.team8327.R;
+import com.cs3312.team8327.floodar.Util.HeightFormatter;
 import com.google.ar.core.Plane;
 import com.google.ar.core.Pose;
 import com.google.ar.core.Session;
@@ -24,9 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.cs3312.team8327.R;
 
-
+/**
+ * Class for handling the AR water level fragment shown in the AR Activity
+ */
 public class WaterLevelARFragment extends ArFragment {
 
     private List<Node> waterNodes = new ArrayList<>();

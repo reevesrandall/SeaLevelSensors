@@ -1,5 +1,8 @@
-package com.cs3312.team8327.floodar;
+package com.cs3312.team8327.floodar.Util;
 
+/**
+ * Class for formatting height for the purpose of use in AR
+ */
 public class HeightFormatter {
 
     private static final float METERS_PER_FOOT = 3.280839895f;
