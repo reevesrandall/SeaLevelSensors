@@ -204,8 +204,9 @@ public class ArActivity extends AppCompatActivity implements Swipeable, AsyncLis
     /**
      * Allows for the seek bar to be initialized from the page fragments since it only appears on one
      * @param view the seek bar that we initialize. Retrieved from the fragment class
+     * @param bottomSheetFragment
      */
-    public void initSeekBar(SeekBar view, boolean disabled, int category) {
+    public void initSeekBar(SeekBar view, boolean disabled, int category, BottomSheetFragment bottomSheetFragment) {
         heightPicker = view;
 
         heightPicker.setProgress(category);
@@ -218,6 +219,10 @@ public class ArActivity extends AppCompatActivity implements Swipeable, AsyncLis
                 planeHeight = progress / (float) seekBar.getMax() * METER_LIMIT;
                 arFragment.setWaterHeight(planeHeight);
                 updateHeightLabel();
+                if (!disabled) {
+                    Log.e("PROGRESS", "" + progress);
+                    bottomSheetFragment.updateDescOnSeekBarChange(progress + 1);
+                }
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {}

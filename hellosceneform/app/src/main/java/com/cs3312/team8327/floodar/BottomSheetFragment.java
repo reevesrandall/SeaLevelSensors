@@ -1,21 +1,15 @@
 package com.cs3312.team8327.floodar;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.method.LinkMovementMethod;
-import android.text.method.ScrollingMovementMethod;
-import android.text.util.Linkify;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.cs3312.team8327.R;
+import com.cs3312.team8327.floodar.Model.Location;
 import com.cs3312.team8327.floodar.Model.StormList;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -23,7 +17,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 
 /**
@@ -58,11 +51,11 @@ public class BottomSheetFragment extends Fragment {
         if (getActivity() != null) {
             if (stormLevel > 0) {
                 Log.e("SLIDER", "" + stormIndex);
-                ((ArActivity) getActivity()).initSeekBar(view.findViewById(R.id.heightPicker), true, StormList.getInstance().getStorm(stormIndex).getCategory() - 1);
+                ((ArActivity) getActivity()).initSeekBar(view.findViewById(R.id.heightPicker), true, StormList.getInstance().getStorm(stormIndex).getCategory() - 1, this);
 //                ((ArActivity) getActivity()).initSeekBar(bottomSheetDialog.getCurrentFocus().findViewById(R.id.heightPicker), true, StormList.getInstance().getStorm(stormIndex).getCategory());
             } else {
 //                ((ArActivity) getActivity()).initSeekBar(bottomSheetDialog.getCurrentFocus().findViewById(R.id.heightPicker), false, StormList.getInstance().getStorm(stormIndex).getCategory());
-                ((ArActivity) getActivity()).initSeekBar(view.findViewById(R.id.heightPicker), false, StormList.getInstance().getStorm(stormIndex).getCategory());
+                ((ArActivity) getActivity()).initSeekBar(view.findViewById(R.id.heightPicker), false, StormList.getInstance().getStorm(stormIndex).getCategory(), this);
             }
         }
 
@@ -99,6 +92,7 @@ public class BottomSheetFragment extends Fragment {
         TextView stormName = view.findViewById(R.id.bottom_storm_name);
         TextView stormSubtext = view.findViewById(R.id.storm_subtext);
         TextView stormDescription = view.findViewById(R.id.storm_description);
+        TextView stormFlooding = view.findViewById(R.id.storm_flooding);
         TextView stormLink = view.findViewById(R.id.storm_link);
         stormName.setText(StormList.getInstance().getStorm(stormIndex).getName());
         stormSubtext.setText(StormList.getInstance().getStorm(stormIndex).getSubtext());
@@ -113,10 +107,26 @@ public class BottomSheetFragment extends Fragment {
 //            stormLink.setMovementMethod(LinkMovementMethod.getInstance());
 //            Linkify.addLinks(stormLink, Linkify.WEB_URLS);
 //            stormLink.setLinksClickable(true);
+            int category = StormList.getInstance().getStorm(stormIndex).getCategory();
+            Log.e("FLOODING", category + "");
+            if (category == 1) {
+                stormFlooding.setText("During a Category 1 storm, you could see flooding of " + Location.getInstance().getCategory1() + " feet at your location.");
+            } else if (category == 2) {
+                stormFlooding.setText("During a Category 2 storm, you could see flooding of " + Location.getInstance().getCategory2() + " feet at your location.");
+            } else if (category == 3) {
+                stormFlooding.setText("During a Category 3 storm, you could see flooding of " + Location.getInstance().getCategory3() + " feet at your location.");
+            } else if (category == 4) {
+                Log.e("FLOODING", "" + Location.getInstance().getCategory4());
+                stormFlooding.setText("During a Category 4 storm, you could see flooding of " + Location.getInstance().getCategory4() + " feet at your location.");
+            } else if (category == 5) {
+                stormFlooding.setText("During a Category 5 storm, you could see flooding of " + Location.getInstance().getCategory5() + " feet at your location.");
+            }
+        } else {
+            // TODO: Make the sliders disabled for historical storms
+            // TODO: Make descriptions change for new locations => on resume probably
+            // TODO: Make descriptions change on the change of the slider for the custom storm view
+
         }
-        // TODO: Make the sliders disabled for historical storms
-        // TODO: Make descriptions change for new locations => on resume probably
-        // TODO: Make descriptions change on the change of the slider for the custom storm view
     }
 
     private BottomSheetBehavior.BottomSheetCallback createBottomSheetCallback() {
@@ -145,5 +155,21 @@ public class BottomSheetFragment extends Fragment {
                     public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
                 };
         return bottomSheetCallback;
+    }
+
+    public void updateDescOnSeekBarChange(int category) {
+        TextView stormDescription = getView().findViewById(R.id.storm_description);
+        Location location = Location.getInstance();
+        if (category == 1) {
+            stormDescription.setText("A Category 1 storm could bring storm surge of 4-11 feet above normal tide levels.\n\nDuring a Category " + category + " storm, you could see flooding of " + location.getCategory1() + " feet at your location");
+        } else if (category == 2) {
+            stormDescription.setText("A Category 2 storm could bring storm surge of 4-11 feet above normal tide levels.\n\nDuring a Category " + category + " storm, you could see flooding of " + location.getCategory2() + " feet at your location");
+        } else if (category == 3) {
+            stormDescription.setText("A Category 3 storm could bring storm surge of 4-11 feet above normal tide levels.\n\nDuring a Category " + category + " storm, you could see flooding of " + location.getCategory3() + " feet at your location");
+        } else if (category == 4) {
+            stormDescription.setText("A Category 4 storm could bring storm surge of 4-11 feet above normal tide levels.\n\nDuring a Category " + category + " storm, you could see flooding of " + location.getCategory4() + " feet at your location");
+        } else if (category == 5) {
+            stormDescription.setText("A Category 5 storm could bring storm surge of 4-11 feet above normal tide levels.\n\nDuring a Category " + category + " storm, you could see flooding of " + location.getCategory5() + " feet at your location");
+        }
     }
 }

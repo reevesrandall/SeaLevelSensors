@@ -355,14 +355,26 @@
                 android:textColor="@color/black"
                 android:layout_marginTop="20dp"
                 android:paddingStart="20dp"
-                android:text="You are currently 8 feet above sea level \n \nA Category 2 storm could bring storm surge of 11-17 feet above normal tide levels \n \nDuring a Category 1 storm, you could see flooding of n feet at your location"
+                android:text="A Category 1 storm could bring storm surge of 4-11 feet above normal tide levels \n\nDuring a Category 1 storm, you could see flooding of n feet at your location"
                 android:paddingEnd="20dp"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/storm_flooding"
                 android:layout_below="@id/storm_description"
+                android:textColor="@color/black"
+                android:layout_marginTop="20dp"
+                android:paddingStart="20dp"
+                android:text=""
+                android:paddingEnd="20dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/storm_flooding"
                 android:id="@+id/storm_link"
                 android:textColor="@color/black"
                 android:paddingStart="20dp"
