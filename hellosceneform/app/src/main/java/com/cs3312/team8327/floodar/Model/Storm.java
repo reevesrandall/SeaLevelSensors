@@ -7,6 +7,9 @@ public class Storm {
     private String name;
     private float level;
     private String description;
+    private int category;
+    private String subtext;
+    private String link;
 
     /**
      * public constructor for making a new storm
@@ -14,10 +17,12 @@ public class Storm {
      * @param level water level in meters for the storm
      * @param description A description of the storm event
      */
-    public Storm(String name, float level, String description) {
+    public Storm(String name, float level, String description, int category, String subtext) {
         this.name = name;
         this.level = level;
         this.description = description;
+        this.category = category;
+        this.subtext = subtext;
     }
 
     public float getLevel() {
@@ -42,5 +47,21 @@ public class Storm {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public String getSubtext() {
+        return subtext;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getLink() {
+        return link;
     }
 }

@@ -14,26 +14,211 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
+<!--<androidx.coordinatorlayout.widget.CoordinatorLayout-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:id="@+id/cat_bottomsheet_coordinator_layout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"-->
+    <!--&gt;-->
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/bottom_drawer"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="150dp"-->
+        <!--android:background="@drawable/rounded_corner"-->
+        <!--android:elevation="16dp"-->
+        <!--app:behavior_hideable="false"-->
+        <!--app:behavior_peekHeight="150dp"-->
+        <!--app:layout_behavior="@string/bottom_sheet_behavior"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--&gt;-->
+
+
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/bottom_drawer_relative"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="400dp">-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/rectangle_indicator"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginTop="16dp"-->
+                <!--android:background="@drawable/rectangular_indicator" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/bottom_storm_name"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@id/rectangle_indicator"-->
+                <!--android:paddingStart="20dp"-->
+                <!--android:layout_marginTop="16dp"-->
+                <!--android:text="TEST TEXT"-->
+                <!--android:textColor="?attr/colorOnSecondary"-->
+                <!--android:textSize="18sp"-->
+                <!--android:transitionName="@string/slide_transition_name" />-->
+
+            <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                <!--&lt;!&ndash;android:id="@+id/transition_storm"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_below="@id/rectangle_indicator"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_centerHorizontal="true"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_marginTop="16dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:text="TEST TEXT"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:textColor="?attr/colorOnSecondary"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:textSize="18sp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:transitionName="@string/slide_transition_name"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:visibility="invisible"/>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="260dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_below="@id/bottom_storm_name"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:text="Storm Category"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:id="@+id/category_label"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:paddingTop="15dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_centerHorizontal="true"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:paddingStart="30dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:textColor="@color/black"/>&ndash;&gt;-->
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/number_labels"-->
+                <!--android:layout_width="480dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@id/heightPicker"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginTop="0dp"-->
+                <!--android:paddingStart="15dp"-->
+                <!--android:weightSum="5">-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:text="Cat 1"-->
+                    <!--android:textAlignment="center"-->
+                    <!--android:textColor="@color/black" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:text="Cat 2"-->
+                    <!--android:textAlignment="center"-->
+                    <!--android:textColor="@color/black" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:text="Cat 3"-->
+                    <!--android:textAlignment="center"-->
+                    <!--android:paddingStart="6dp"-->
+                    <!--android:textColor="@color/black" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:text="Cat 4"-->
+                    <!--android:textAlignment="center"-->
+                    <!--android:textColor="@color/black"-->
+                    <!--android:paddingStart="10dp"/>-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:text="Cat 5"-->
+                    <!--android:textAlignment="center"-->
+                    <!--android:paddingStart="15dp"-->
+                    <!--android:textColor="@color/black" />-->
+
+            <!--</LinearLayout>-->
+
+            <!--<SeekBar-->
+                <!--android:id="@+id/heightPicker"-->
+                <!--android:layout_width="300dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@id/bottom_storm_name"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginTop="3dp"-->
+                <!--android:max="4"-->
+                <!--android:theme="@style/Widget.AppCompat.SeekBar.Discrete" />-->
+
+        <!--</RelativeLayout>-->
+    <!--</LinearLayout>-->
+<!--</androidx.coordinatorlayout.widget.CoordinatorLayout>-->
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cat_bottomsheet_coordinator_layout"
+    android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    tools:context=".floodar.ArActivity">
 
-    <LinearLayout
+    <!--<RelativeLayout-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--android:id="@+id/bottom_drawer"-->
+        <!--style="@style/Widget.MaterialComponents.BottomSheet.Modal"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="400dp"-->
+        <!--android:elevation="16dp"-->
+        <!--app:behavior_hideable="false"-->
+        <!--app:backgroundTint="?attr/colorSurface"-->
+        <!--app:behavior_peekHeight="200dp"-->
+        <!--app:layout_behavior="@string/bottom_sheet_behavior">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:text="@string/cat_bottomsheet_persistent"-->
+            <!--android:textColor="?attr/colorOnSurface"-->
+            <!--android:textSize="18sp"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/cat_persistent_bottomsheet_state"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:layout_below="@id/textView"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:text="@string/cat_bottomsheet_state_collapsed"-->
+            <!--android:textColor="?attr/colorOnSurface"-->
+            <!--android:textSize="18sp"/>-->
+
+    <!--</RelativeLayout>-->
+    <!--<LinearLayout-->
+        <!--android:id="@+id/bottom_drawer"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="150dp"-->
+        <!--android:background="@drawable/rounded_corner"-->
+        <!--android:elevation="16dp"-->
+        <!--app:behavior_hideable="false"-->
+        <!--app:behavior_peekHeight="150dp"-->
+        <!--app:layout_behavior="@string/bottom_sheet_behavior"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--&gt;-->
+        <LinearLayout
+        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/bottom_drawer"
+        style="@style/AppModalStyle"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="@drawable/rounded_corner"
+        android:layout_height="340dp"
         android:elevation="16dp"
         app:behavior_hideable="false"
-        app:behavior_peekHeight="150dp"
-        android:layout_gravity="bottom"
-        >
-
+        app:backgroundTint="?attr/colorSurface"
+        app:behavior_peekHeight="155dp"
+        app:layout_behavior="@string/bottom_sheet_behavior">
 
         <RelativeLayout
             android:id="@+id/bottom_drawer_relative"
@@ -53,22 +238,139 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/rectangle_indicator"
-                android:layout_centerHorizontal="true"
+                android:paddingStart="20dp"
                 android:layout_marginTop="16dp"
                 android:text="TEST TEXT"
                 android:textColor="?attr/colorOnSecondary"
                 android:textSize="18sp"
                 android:transitionName="@string/slide_transition_name" />
 
+            <TextView
+                android:id="@+id/storm_subtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bottom_storm_name"
+                android:paddingStart="20dp"
+                android:layout_marginTop="6dp"
+                android:text="Adjust the slider to visualie flood risk at your location"
+                android:textColor="@color/mtrl_dark_on_primary_emphasis_medium"
+                android:textSize="12sp" />
+
+            <!--<TextView-->
+            <!--android:id="@+id/transition_storm"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/rectangle_indicator"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:text="TEST TEXT"-->
+            <!--android:textColor="?attr/colorOnSecondary"-->
+            <!--android:textSize="18sp"-->
+            <!--android:transitionName="@string/slide_transition_name"-->
+            <!--android:visibility="invisible"/>-->
+
+            <!--<TextView-->
+            <!--android:layout_width="260dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/bottom_storm_name"-->
+            <!--android:text="Storm Category"-->
+            <!--android:id="@+id/category_label"-->
+            <!--android:paddingTop="15dp"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:paddingStart="30dp"-->
+            <!--android:textColor="@color/black"/>-->
+
+
+
+            <LinearLayout
+                android:id="@+id/number_labels"
+                android:layout_width="480dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/heightPicker"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="0dp"
+                android:paddingStart="15dp"
+                android:weightSum="5">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cat 1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cat 2"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cat 3"
+                    android:textAlignment="center"
+                    android:paddingStart="6dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cat 4"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:paddingStart="10dp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cat 5"
+                    android:textAlignment="center"
+                    android:paddingStart="15dp"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
             <SeekBar
                 android:id="@+id/heightPicker"
-                android:layout_marginTop="20dp"
-                android:layout_width="230dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:max="100"
+                android:layout_below="@id/storm_subtext"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@id/bottom_storm_name" />
+                android:layout_marginTop="10dp"
+                android:max="4"
+                android:theme="@style/Widget.AppCompat.SeekBar.Discrete" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/storm_description"
+                android:layout_below="@id/number_labels"
+                android:textColor="@color/black"
+                android:layout_marginTop="20dp"
+                android:paddingStart="20dp"
+                android:text="You are currently 8 feet above sea level \n \nA Category 2 storm could bring storm surge of 11-17 feet above normal tide levels \n \nDuring a Category 1 storm, you could see flooding of n feet at your location"
+                android:paddingEnd="20dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/storm_description"
+                android:id="@+id/storm_link"
+                android:textColor="@color/black"
+                android:paddingStart="20dp"
+                android:text=""
+                android:autoLink="web"
+                />
 
         </RelativeLayout>
     </LinearLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

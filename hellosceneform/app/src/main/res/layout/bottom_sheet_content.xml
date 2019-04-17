@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cat_bottomsheet_coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    >
+
+    <LinearLayout
+        android:id="@+id/bottom_drawer"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/rounded_corner"
+        android:elevation="16dp"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="150dp"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        android:layout_gravity="bottom"
+        >
+
+
+        <RelativeLayout
+            android:id="@+id/bottom_drawer_relative"
+            android:layout_width="match_parent"
+            android:layout_height="400dp">
+
+            <ImageView
+                android:id="@+id/rectangle_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rectangular_indicator" />
+
+            <TextView
+                android:id="@+id/bottom_storm_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rectangle_indicator"
+                android:paddingStart="20dp"
+                android:layout_marginTop="16dp"
+                android:text="TEST TEXT"
+                android:textColor="?attr/colorOnSecondary"
+                android:textSize="18sp"
+                android:transitionName="@string/slide_transition_name" />
+
+            <!--<TextView-->
+            <!--android:id="@+id/transition_storm"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/rectangle_indicator"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:text="TEST TEXT"-->
+            <!--android:textColor="?attr/colorOnSecondary"-->
+            <!--android:textSize="18sp"-->
+            <!--android:transitionName="@string/slide_transition_name"-->
+            <!--android:visibility="invisible"/>-->
+
+            <!--<TextView-->
+            <!--android:layout_width="260dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/bottom_storm_name"-->
+            <!--android:text="Storm Category"-->
+            <!--android:id="@+id/category_label"-->
+            <!--android:paddingTop="15dp"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:paddingStart="30dp"-->
+            <!--android:textColor="@color/black"/>-->
+
+            <LinearLayout
+                android:id="@+id/number_labels"
+                android:layout_width="480dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/heightPicker"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="0dp"
+                android:paddingStart="15dp"
+                android:weightSum="5">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cat 1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cat 2"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cat 3"
+                    android:textAlignment="center"
+                    android:paddingStart="6dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cat 4"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:paddingStart="10dp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cat 5"
+                    android:textAlignment="center"
+                    android:paddingStart="15dp"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/heightPicker"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bottom_storm_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="3dp"
+                android:max="4"
+                android:theme="@style/Widget.AppCompat.SeekBar.Discrete" />
+
+        </RelativeLayout>
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

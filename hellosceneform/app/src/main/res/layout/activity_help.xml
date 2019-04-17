@@ -1,16 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".floodar.HelpActivity">
+    tools:context=".floodar.ArActivity"
+    android:background="@color/white">
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Application Help text"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="355dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:id="@+id/title"
+        android:text="floodAR"
+        android:textSize="24sp"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/desc_header"
+        android:text="Description"
+        android:layout_below="@id/title"
+        android:textSize="18sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/desc"
+        android:text="floodAR visualizes flood levels in augmented reality to raise awareness of the danger of flood risk. This app hopes to inform on the realities of flood risk in order to help residents during times of actual flooding."
+        android:layout_below="@id/desc_header"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/black"
+        android:layout_marginEnd="20dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/usage_header"
+        android:text="Usage"
+        android:layout_below="@id/desc"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:textSize="18dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/usage"
+        android:text="First, point the camera at the floor and move it back and forth so the app can detect the ground. This is to get the app to detect depth. Look for a patch of dots on the floor to see that it has successfully found the ground.\n\nThe blue rectangle represents the water level in a storm. If you don't see it, point your camera up, as it might be above you.\n\nTo change the water level, drag the adjustable water level slider right and left. This shows you what a storm from Category 1 to Category 5 would look like in your area.\n"
+        android:layout_below="@id/usage_header"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/black"
+        android:layout_marginEnd="20dp"
+        />
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/control_gif"
+        android:src="@drawable/floodar_usage"
+        android:layout_below="@id/usage"
+        />
+</RelativeLayout>

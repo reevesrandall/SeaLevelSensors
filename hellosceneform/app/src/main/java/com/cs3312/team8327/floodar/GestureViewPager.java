@@ -38,15 +38,22 @@ public class GestureViewPager extends ViewPager {
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
 //        Log.e("TOUCH", "onTouchEvent: " + initialY);
+        int swipeThreshold = 450;
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+//            Log.e("FINGER DOWN", "" + (int)motionEvent.getY());
             initialX = (int)motionEvent.getX();
             initialY = (int)motionEvent.getY();
             newSwipe = true;
         }
-        if ((int)motionEvent.getY() - initialY < -300 && newSwipe) {
+        if ((int)motionEvent.getY() - initialY < (-1 * swipeThreshold) && newSwipe) {
             newSwipe = false;
             Log.e("ENOUGH GESTURE", "onTouchEvent: ");
             swipeable.slideTransition("UP");
+        }
+        if ((int)motionEvent.getY() - initialY > swipeThreshold && initialY < 250 && newSwipe) {
+            newSwipe = false;
+            Log.e("ENOUGH GESTURE", "onTouchEvent: ");
+            swipeable.slideTransition("DOWN");
         }
         mGestureDetector.onTouchEvent(motionEvent);
         return super.onTouchEvent(motionEvent);

@@ -11,6 +11,7 @@ import com.cs3312.team8327.floodar.Model.StormList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GestureDetectorCompat;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * Activity for showing further details on a storm, launched when a user swipes up on a card in the
@@ -35,14 +36,23 @@ public class StormActivity extends AppCompatActivity implements Swipeable {
 
         populateStorm(stormIndex);
 
-        // allow the page to register gestures
-        View layoutView = findViewById(R.id.bottom_drawer);
-        layoutView.setOnTouchListener(touchListener);
-
         // set up gesture detection for swiping down
         GestureListener gestureListener = new GestureListener();
         gestureListener.setActivity(this);
         mDetector = new GestureDetectorCompat(this, gestureListener);
+
+        // allow the page to register gestures
+        View layoutView = findViewById(R.id.bottom_drawer);
+        layoutView.setOnTouchListener(touchListener);
+
+        PagerContainer pagerContainer;
+//        GestureViewPager pager;
+        ViewPager pager;
+
+        pagerContainer = findViewById(R.id.pager_container);
+        pager = pagerContainer.getViewPager();
+//        pager.setSwipeable(this);
+//        pager.setGestureDetector(mDetector);
     }
 
     /**

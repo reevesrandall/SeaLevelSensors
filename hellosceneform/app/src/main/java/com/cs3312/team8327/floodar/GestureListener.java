@@ -57,18 +57,18 @@ class GestureListener extends GestureDetector.SimpleOnGestureListener {
             // Only when swipe distance between minimal and maximal distance value then we treat it as effective swipe
             if ((deltaXAbs >= MIN_SWIPE_DISTANCE_X) && (deltaXAbs <= MAX_SWIPE_DISTANCE_X)) {
                 if (deltaX > 0) {
-                    Log.d(DEBUG_TAG, "swipe left ");
+//                    Log.d(DEBUG_TAG, "swipe left ");
                 } else {
-                    Log.d(DEBUG_TAG, "swipe right ");
+//                    Log.d(DEBUG_TAG, "swipe right ");
                 }
             }
 
             if ((deltaYAbs >= MIN_SWIPE_DISTANCE_Y) && (deltaYAbs <= MAX_SWIPE_DISTANCE_Y)) {
                 if (deltaY > 0) {
-                    Log.d(DEBUG_TAG, "swipe up ");
-                    this.activity.slideTransition("UP");
+//                    Log.d(DEBUG_TAG, "swipe up ");
+//                    this.activity.slideTransition("UP");
                 } else {
-                    Log.d(DEBUG_TAG, "swipe down ");
+//                    Log.d(DEBUG_TAG, "swipe down ");
                     this.activity.slideTransition("DOWN");
                 }
             }

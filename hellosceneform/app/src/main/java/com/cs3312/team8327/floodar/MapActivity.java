@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.cs3312.team8327.R;
+import com.cs3312.team8327.floodar.Model.Location;
 import com.google.gson.JsonObject;
 import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
@@ -100,7 +101,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         .placeOptions(PlaceOptions.builder()
                                 .backgroundColor(Color.parseColor("#EEEEEE"))
                                 .limit(10)
-                                .addInjectedFeature(currentLocation)
+//                                .addInjectedFeature(currentLocation)
                                 .build(PlaceOptions.MODE_CARDS))
                         .build(MapActivity.this);
                 startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
@@ -146,6 +147,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                     .zoom(14)
                                     .build()), 4000);
 
+                    if (selectedCarmenFeature.geometry() != null) {
+                        Location.getInstance().setLatLon(((Point) selectedCarmenFeature.geometry()).latitude(), ((Point) selectedCarmenFeature.geometry()).longitude(), getApplicationContext());
+                        Location.getInstance().setElevation(((Point) selectedCarmenFeature.geometry()).altitude());
+                    }
                     Toast.makeText(this, R.string.storm_location_updated, Toast.LENGTH_LONG).show();
                 }
             }
@@ -166,6 +171,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             // Enable to make component visible
             locationComponent.setLocationComponentEnabled(true);
             if (locationComponent.getLastKnownLocation() != null) {
+                Location.getInstance().setLatLon(locationComponent.getLastKnownLocation().getLatitude(), locationComponent.getLastKnownLocation().getLongitude(), getApplicationContext());
+                Location.getInstance().setElevation(locationComponent.getLastKnownLocation().getAltitude());
                 currentLocation = CarmenFeature.builder().text("Current Location")
                         .geometry(Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(), locationComponent.getLastKnownLocation().getLatitude()))
                         .placeName("Current Location")

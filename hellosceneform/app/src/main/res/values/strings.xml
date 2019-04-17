@@ -33,5 +33,6 @@
     <string name="user_location_permission_explanation">floodAR needs your location in order to show you accurate flood water levels for your elevation.</string>
     <string name="user_location_permission_not_granted">You\'ve decided not to let floodAR view your location. You can change this decision in your settings app.</string>
     <string name="storm_location_updated">Your storm location has been updated.</string>
-    <string name="airtable_key"></string>
+    <string name="airtable_key">https://api.airtable.com/v0/appsTMdPpOmcl5xKO/Storms?api_key=</string>
+    <string name="airtable_key_coordinates">https://api.airtable.com/v0/appsTMdPpOmcl5xKO/Coordinates?api_key=</string>
 </resources>

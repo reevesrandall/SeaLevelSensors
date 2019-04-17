@@ -2,6 +2,7 @@ package com.cs3312.team8327.floodar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.ImageDecoder;
 import android.os.Bundle;
 
 import com.cs3312.team8327.R;

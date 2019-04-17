@@ -23,10 +23,12 @@ import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.GestureDetectorCompat;
 import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
 import android.view.Gravity;
@@ -37,9 +39,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cs3312.team8327.R;
+import com.cs3312.team8327.floodar.Model.Location;
 import com.cs3312.team8327.floodar.Model.StormList;
 import com.cs3312.team8327.floodar.Util.HeightFormatter;
 import com.cs3312.team8327.floodar.Util.HttpRequest;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
@@ -47,12 +55,16 @@ import com.google.ar.core.Plane;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.TransformableNode;
+import com.mapbox.android.core.permissions.PermissionsListener;
+import com.mapbox.android.core.permissions.PermissionsManager;
+
+import java.util.List;
 
 /**
  * This is the activity for showing the AR water level fragment on the user's camera
  * as well as a list of past storms for further viewing
  */
-public class ArActivity extends AppCompatActivity implements Swipeable, AsyncListener {
+public class ArActivity extends AppCompatActivity implements Swipeable, AsyncListener, PermissionsListener {
     private static final String TAG = ArActivity.class.getSimpleName();
     private static final double MIN_OPENGL_VERSION = 3.0;
 
@@ -65,13 +77,15 @@ public class ArActivity extends AppCompatActivity implements Swipeable, AsyncLis
 
     private static final float METER_LIMIT = 3.0f;
 
-    private GestureViewPager pager;
+//    private GestureViewPager pager;
+    private ViewPager pager;
     private PagerAdapter pagerAdapter;
     private PagerContainer pagerContainer;
     private GestureDetectorCompat gestureDetector;
 
-    private FloatingActionButton mapButton;
-    private FloatingActionButton helpButton;
+    // locations permissions
+    private PermissionsManager permissionsManager;
+    private FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
@@ -83,9 +97,12 @@ public class ArActivity extends AppCompatActivity implements Swipeable, AsyncLis
         if (!checkIsSupportedDeviceOrFinish(this)) {
             return;
         }
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        enableLocationComponent();
 
         // perform http request to get storms
-        HttpRequest.sendRequest(this, getString(R.string.airtable_key), this);
+        HttpRequest.sendStormRequest(this, getString(R.string.airtable_key), this);
+        HttpRequest.sendBoxRequest(this, getString(R.string.airtable_key_coordinates), this);
 
         setContentView(R.layout.activity_ar);
 
@@ -97,14 +114,8 @@ public class ArActivity extends AppCompatActivity implements Swipeable, AsyncLis
      * Used as a callback in the add storms method
      */
     public void onEventCompleted() {
-        GestureListener gestureListener = new GestureListener();
-        gestureListener.setActivity(this);
-        gestureDetector = new GestureDetectorCompat(this, gestureListener);
-
         pagerContainer = findViewById(R.id.pager_container);
         pager = pagerContainer.getViewPager();
-        pager.setSwipeable(this);
-        pager.setGestureDetector(gestureDetector);
         pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         // configure the page settings
         pager.setOffscreenPageLimit(pagerAdapter.getCount());
@@ -113,6 +124,9 @@ public class ArActivity extends AppCompatActivity implements Swipeable, AsyncLis
         pager.setAdapter(pagerAdapter);
 
         pager.setCurrentItem(StormList.getInstance().getLength() - 1);
+
+        FloatingActionButton mapButton;
+        FloatingActionButton helpButton;
 
         mapButton = findViewById(R.id.map_button);
         mapButton.setOnClickListener(new View.OnClickListener() {
@@ -191,8 +205,13 @@ public class ArActivity extends AppCompatActivity implements Swipeable, AsyncLis
      * Allows for the seek bar to be initialized from the page fragments since it only appears on one
      * @param view the seek bar that we initialize. Retrieved from the fragment class
      */
-    public void initSeekBar(SeekBar view) {
+    public void initSeekBar(SeekBar view, boolean disabled, int category) {
         heightPicker = view;
+
+        heightPicker.setProgress(category);
+        if (disabled) {
+//            heightPicker.setEnabled(false);
+        }
         heightPicker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
@@ -246,5 +265,85 @@ public class ArActivity extends AppCompatActivity implements Swipeable, AsyncLis
 
     private void updateHeightLabel() {
         heightLabel.setText(HeightFormatter.stringForHeight(planeHeight));
+    }
+
+
+    private void enableLocationComponent() {
+        // Check if permissions are enabled and if not request
+        if (PermissionsManager.areLocationPermissionsGranted(this)) {
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<android.location.Location>() {
+                @Override
+                public void onSuccess(android.location.Location location) {
+                    if (location != null) {
+                        Location.getInstance().setLatLon(location.getLatitude(), location.getLongitude(), getApplicationContext());
+                        Location.getInstance().setElevation(location.getAltitude());
+                    } else {
+                        Location.getInstance().setLatLon(32.080926, -81.091216, getApplicationContext());
+                        Location.getInstance().setElevation(5);
+                    }
+                }
+            }).addOnFailureListener(this, new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Location.getInstance().setLatLon(32.080926, -81.091216, getApplicationContext());
+                    Location.getInstance().setElevation(5);
+                }
+            }).addOnCanceledListener(this, new OnCanceledListener() {
+                @Override
+                public void onCanceled() {
+                    Location.getInstance().setLatLon(32.080926, -81.091216, getApplicationContext());
+                    Location.getInstance().setElevation(5);
+                }
+            });
+        } else {
+            permissionsManager = new PermissionsManager(this);
+            permissionsManager.requestLocationPermissions(this);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    public void onExplanationNeeded(List<String> permissionsToExplain) {
+        Toast.makeText(this, R.string.user_location_permission_explanation, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onPermissionResult(boolean granted) {
+        if (granted) {
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<android.location.Location>() {
+                @Override
+                public void onSuccess(android.location.Location location) {
+                    if (location != null) {
+                        Location.getInstance().setLatLon(location.getLatitude(), location.getLongitude(), getApplicationContext());
+                        Location.getInstance().setElevation(location.getAltitude());
+                    } else {
+                        Location.getInstance().setLatLon(32.080926, -81.091216, getApplicationContext());
+                        Location.getInstance().setElevation(5);
+                    }
+                }
+            }).addOnFailureListener(this, new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Location.getInstance().setLatLon(32.080926, -81.091216, getApplicationContext());
+                    Location.getInstance().setElevation(5);
+                }
+            }).addOnCanceledListener(this, new OnCanceledListener() {
+                @Override
+                public void onCanceled() {
+                    Location.getInstance().setLatLon(32.080926, -81.091216, getApplicationContext());
+                    Location.getInstance().setElevation(5);
+                }
+            });
+        } else {
+            Toast.makeText(this, R.string.user_location_permission_not_granted, Toast.LENGTH_LONG).show();
+            // permissions denied, setting default location to be in savannah
+            Location.getInstance().setLatLon(32.080926, -81.091216, getApplicationContext());
+            Location.getInstance().setElevation(5);
+            finish();
+        }
     }
 }

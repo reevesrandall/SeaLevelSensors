@@ -16,7 +16,8 @@ import androidx.viewpager.widget.ViewPager;
  */
 public class PagerContainer extends FrameLayout implements ViewPager.OnPageChangeListener {
 
-    private GestureViewPager mPager;
+//    private GestureViewPager mPager;
+    private ViewPager mPager;
     boolean mNeedsRedraw = false;
 
     public PagerContainer(Context context) {
@@ -48,14 +49,15 @@ public class PagerContainer extends FrameLayout implements ViewPager.OnPageChang
     protected void onFinishInflate() {
         super.onFinishInflate();
         try {
-            mPager = (GestureViewPager) getChildAt(0);
+//            mPager = (GestureViewPager) getChildAt(0);
+            mPager = (ViewPager) getChildAt(0);
             mPager.addOnPageChangeListener(this);
         } catch (Exception e) {
             throw new IllegalStateException("The root child of PagerContainer must be a ViewPager");
         }
     }
 
-    public GestureViewPager getViewPager() {
+    public ViewPager getViewPager() {
         return mPager;
     }
 
@@ -68,6 +70,22 @@ public class PagerContainer extends FrameLayout implements ViewPager.OnPageChang
         mCenter.y = h / 2;
     }
 
+//    @Override
+//    public boolean onTouchEvent(MotionEvent ev) {
+//        //We capture any touches not already handled by the ViewPager
+//        // to implement scrolling from a touch outside the pager bounds.
+//        switch (ev.getAction()) {
+//            case MotionEvent.ACTION_DOWN:
+//                mInitialTouch.x = (int)ev.getX();
+//                mInitialTouch.y = (int)ev.getY();
+//            default:
+//                ev.offsetLocation(mCenter.x - mInitialTouch.x, mCenter.y - mInitialTouch.y);
+//                Log.e("GESTURE", (mCenter.y - mInitialTouch.y) + "");
+//                break;
+//        }
+//        return mPager.dispatchTouchEvent(ev);
+//    }
+
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         //We capture any touches not already handled by the ViewPager
@@ -78,16 +96,16 @@ public class PagerContainer extends FrameLayout implements ViewPager.OnPageChang
                 mInitialTouch.y = (int)ev.getY();
             default:
                 ev.offsetLocation(mCenter.x - mInitialTouch.x, mCenter.y - mInitialTouch.y);
-                Log.e("GESTURE", (mCenter.y - mInitialTouch.y) + "");
                 break;
         }
+
         return mPager.dispatchTouchEvent(ev);
     }
 
-    @Override
-    public boolean performClick() {
-        return super.performClick();
-    }
+//    @Override
+//    public boolean performClick() {
+//        return super.performClick();
+//    }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
