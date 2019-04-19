@@ -7,6 +7,12 @@
 #### Known Issues #####
 * Storm category slider should be disabled on historical storm view
   * Setting slider to disabled in the code causes the slider to disappear
+* Links in card are very difficult to click, likely due to the gesture behavior implemented for the cards
+  * In the process of looking for a solution. Changing the links to buttons with a larger click area may solve the issue.
+#### Bugs Fixed ####
+* Previously the app would crash if certain keys were missing, but it handles these errors more gracefully now
+* Some text in the cards was overflowing below the screen, the card height has been increased to accommodate for this
+* Autofill of location search was showing up on a transparent background, making it hard to read. This has been fixed.
   
 ## Install Guide ##
 ### Pre-requisites ###
