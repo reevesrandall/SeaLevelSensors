@@ -22,4 +22,6 @@
 * Using Android Studio, either set up a virtual device or connect a physical Android phone with developer mode enabled to your computer
  * Please note your phone/emulator should be capable of running AR applications with ARCore. As such it must be running at least Android SDK 24, and preferably Android SDK 28
 * Run the project from the Android Studio build menu and select your phone/emulator as the target
-
+### Troubleshooting ###
+* When running the app on a device, be sure to update your Google Play Store. This being out of date can cause some strange and unclear errors.
+* If there are errors running the build.gradle, ensure that the correct Android SKDS are installed. There are a number of different versions, so selecting one that is atleast version 24 with Google Play Store and AR core capabilities is important.
