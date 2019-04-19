@@ -10,7 +10,16 @@
   
 ## Install Guide ##
 ### Pre-requisites ###
+* Java JDK 1.8 must be installed
 ### Libraries ###
+* The latest version of Android studio must used to run this project
+* The application uses other libraries, but they're included in the build.gradle file and will be downloaded when the project is initialized
 ### Download Instructions ###
+* Download a zip of this repository, or check it out from the new project screen of Android studio
 ### Installation ###
+* Run a gradle build of the application directory to install necessary libraries
 ### Running ###
+* Using Android Studio, either set up a virtual device or connect a physical Android phone with developer mode enabled to your computer
+ * Please note your phone/emulator should be capable of running AR applications with ARCore. As such it must be running at least Android SDK 24, and preferably Android SDK 28
+* Run the project from the Android Studio build menu and select your phone/emulator as the target
+
